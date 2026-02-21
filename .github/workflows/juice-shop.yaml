@@ -37,10 +37,12 @@ jobs:
       # -------------------------
       # 2️⃣ Dependency Scan (Snyk)
       # -------------------------
-      - name: Snyk Scan
-        uses: snyk/actions/node@master
+      - name: Snyk Docker Scan
+        uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ env.IMAGE_URI }}
 
       # -------------------------
       # 3️⃣ Build & Push Docker Image (Docker Hub)
