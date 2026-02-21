@@ -37,12 +37,7 @@ jobs:
       # -------------------------
       # 2️⃣ Dependency Scan (Snyk)
       # -------------------------
-      - name: Snyk Docker Scan
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          image: ${{ env.IMAGE_URI }}
+
 
       # -------------------------
       # 3️⃣ Build & Push Docker Image (Docker Hub)
@@ -58,6 +53,13 @@ jobs:
           echo "Building Docker image $IMAGE_URI"
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
+
+      - name: Snyk Docker Scan
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ env.IMAGE_URI }}
 
       # -------------------------
       # 4️⃣ Container Scan (Trivy)
