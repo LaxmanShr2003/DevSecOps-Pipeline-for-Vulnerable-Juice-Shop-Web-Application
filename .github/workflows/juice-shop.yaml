@@ -29,7 +29,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=Juice-Shop
-            -Dsonar.projectName=Juice Shop
+            -Dsonar.projectName=JuiceShop
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
