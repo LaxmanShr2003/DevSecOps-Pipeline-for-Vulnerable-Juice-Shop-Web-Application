@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juice-shop
+  namespace: ribesh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: juice-shop
+  template:
+    metadata:
+      labels:
+        app: juice-shop
+    spec:
+      containers:
+      - name: juice-shop
+        image: bkimminich/juice-shop:latest
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: juice-shop-service
+  namespace: ribesh
+spec:
+  type: ClusterIP          # <-- changed from LoadBalancer
+  selector:
+    app: juice-shop
+  ports:
+    - protocol: TCP
+      port: 80             # internal cluster port
+      targetPort: 3000
